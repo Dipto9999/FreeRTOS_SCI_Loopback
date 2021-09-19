@@ -80,8 +80,6 @@ static void sciDisplayText(sciBASE_t *sci, uint8_t *text, uint32_t length);
 #define LOG_MSG(msg) sciDisplayText(scilinREG, msg, strlen((const char*)msg));
 #define ABORT(msg) { LOG_MSG(msg); for(;;); }
 
-#define TRUE 1
-#define FALSE 0
 #define ERROR -1
 
 /*** LOCAL VARIABLES ***/
