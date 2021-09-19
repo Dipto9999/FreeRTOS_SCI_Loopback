@@ -55,7 +55,7 @@ Here is a sample of the <b>CCS</b> register displays during runtime.
 3  | ![](images/Reg_READ_MSG_BYTE_3.JPG)
 
 
-The <b>TMS570LS1224 Technical Reference Manual</b> specifies that the <b>SCI Data Buffers</b> contain 8 bits of data. Due to this, we must copy a byte of data (i.e. a character) from the <b>SCIRD</b> register to the variable ```static uint8_t rxBuff[LENGTH_BUFF];``` at a time.
+The <b>TMS570LS1224 Technical Reference Manual</b> specifies that the <b>SCI Data Buffers</b> contain 8 bits of data. Due to this, we must copy a byte of data (i.e. a character) from the <b>SCIRD</b> register to the variable </br> ```static uint8_t rxBuff[LENGTH_BUFF];``` at a time.
 
 ## FreeRTOS Architecture
 
@@ -95,8 +95,7 @@ Note : The stack buffer is defined as an array of type `uint32_t` and size `DEFA
 
 We use semaphores as a signalling mechanism that the buffer  ```static uint8_t rxBuff[LENGTH_BUFF];``` contains a complete message. This allows us to determine when the <b>SCI RX</b> task should run.
 
-We create the semaphore before creating the tasks or starting the scheduler, by calling
-```sciRxSem = xSemaphoreCreateBinaryStatic(&sciRxSemBuffer);```.
+We create the semaphore before creating the tasks or starting the scheduler, by calling </br>```sciRxSem = xSemaphoreCreateBinaryStatic(&sciRxSemBuffer);```.
 
 We pass a pointer to a semaphore buffer of type ```StaticSemaphore_t``` as a parameter and assign the return value to a semaphore handle variable.
 
@@ -114,9 +113,7 @@ This data is used by the <b>SCI RX</b> task, which acts as a consumer task.
 
 The <b>SCI RX</b> events are handled by our callback function for <b>SCI</b> interrupts. We must use the interrupt-safe version of the <b>FreeRTOS API</b> by calling ```xSemaphoreGiveFromISR(sciRxSem, &xTaskWoken);```. These <b>API</b> functions never block code execution.
 
-We pass a pointer to a ```BaseType_t``` variable to see if a task is woken by increasing the semaphore count. If a task is woken, it is called immediately upon completion of the <b>ISR</b>.
-
-This variable is once again passed at the end of the callback function as we yield operation to the scheduler by calling ```portYIELD_FROM_ISR(xTaskWoken);```.
+We pass a pointer to a ```BaseType_t``` variable to see if a task is woken by increasing the semaphore count. If a task is woken, it is called immediately upon completion of the <b>ISR</b>. This variable is once again passed at the end of the callback function as we yield operation to the scheduler by calling ```portYIELD_FROM_ISR(xTaskWoken);```.
 
 ## Task Delay
 
