@@ -10,6 +10,7 @@
 * [FreeRTOS Architecture](#FreeRTOS-Architecture)
     * [Tasks](#Tasks)
     * [Mutual Exclusion](#Semaphore)
+        * [Producer-Consumer Design](#Producer-Consumer-Design)
     * [Interrupt Service Routine](#ISR)
     * [Task Delay](#Task-Delay)
 * [Credit](#Credit)
@@ -55,7 +56,6 @@ Here is a sample of the <b>CCS</b> register displays during runtime.
 
 
 The <b>TMS570LS1224 Technical Reference Manual</b> specifies that the <b>SCI Data Buffers</b> contain 8 bits of data. Due to this, we must copy a byte of data (i.e. a character) from the <b>SCIRD</b> register to the variable ```static uint8_t rxBuff[LENGTH_BUFF];``` at a time.
-
 
 ## FreeRTOS Architecture
 
