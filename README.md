@@ -31,9 +31,7 @@ We will be using the <b>ARM</b> compiler included with <b>CCS</b> to create our 
 
 ### Debugger
 
-<b>CCS</b> allows us to use the <b>XDS 110</b> entry level debug probe to step through the code after flashing the executable file to the microcontroller.
-
-This allows us to view the contents of the registers during runtime and determine if our <b>SCI Loopback</b> is working as designed.
+<b>CCS</b> allows us to use the <b>XDS 110</b> entry level debug probe to step through the code after flashing the executable file to the microcontroller. This allows us to view the contents of the registers during runtime and determine if our <b>SCI Loopback</b> is working as designed.
 
 We set a breakpoint in the <b>Interrupt Service Routine (i.e. ISR)</b> for <b>SCI RX</b> interrupt events. We break code execution upon reading a byte from the <b>Receive Data Buffer (i.e. SCIRD)</b>, as shown below.
 
@@ -41,7 +39,7 @@ We set a breakpoint in the <b>Interrupt Service Routine (i.e. ISR)</b> for <b>SC
 
 ## SCI Loopback
 
-The purpose of the <b>SCI Loopback</b> is to transmit and receive the same data with the same peripheral. This allows us to test the other functionality of the program during data transfers. We are particularly interested in testing mutual exclusion with semaphores.
+The purpose of the <b>SCI Loopback</b> is to transmit and receive the same data with the same peripheral. This allows us to test other functionality during data transfers. We are particularly interested in testing mutual exclusion with semaphores.
 
 ### SCI Data Buffers
 
@@ -97,7 +95,8 @@ Note : The stack buffer is defined as an array of type `uint32_t` and size `DEFA
 
 We use semaphores as a signalling mechanism that the buffer  ```static uint8_t rxBuff[LENGTH_BUFF];``` contains a complete message. This allows us to determine when the <b>SCI RX</b> task should run.
 
-We create the semaphore before creating the tasks or starting the scheduler, by calling ```sciRxSem = xSemaphoreCreateBinaryStatic(&sciRxSemBuffer);```.
+We create the semaphore before creating the tasks or starting the scheduler, by calling
+```sciRxSem = xSemaphoreCreateBinaryStatic(&sciRxSemBuffer);```.
 
 We pass a pointer to a semaphore buffer of type ```StaticSemaphore_t``` as a parameter and assign the return value to a semaphore handle variable.
 
